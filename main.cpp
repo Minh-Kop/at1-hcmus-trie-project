@@ -1,17 +1,15 @@
 #include "trie.hpp"
+#include <fstream>
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-    string keys[] = { "by","bye", "their","the", "heroplan", "heroplane","hero" };
-    int n = sizeof(keys) / sizeof(keys[0]);
-
+    int n=0;
+    string *keys;
     TrieNode* root = new TrieNode;
-
-    for (int i = 0; i < n; i++)
-    {
-        insertItem(root, keys[i]);
-    }
-
+    ifstream inp("input.txt");
+    buildTrie(root, inp, keys, n);
+    inp.close();
     searchItem(root, "the") ? cout << "Yes\n" : cout << "No\n";
     searchItem(root, "their") ? cout << "Yes\n" : cout << "No\n";
 

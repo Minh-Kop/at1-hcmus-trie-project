@@ -1,4 +1,6 @@
 #include "trie.hpp"
+#include <fstream>
+using namespace std;
 
 TrieNode::TrieNode()
 {
@@ -75,7 +77,7 @@ void insertItem(TrieNode* root, string key)
     track->End = true;
 }
 
-TrieNode* removeItem(TrieNode* root, string key, int depth)
+TrieNode* removeItem(TrieNode* &root, string key, int depth)
 {
     if (!root)
     {
@@ -107,5 +109,26 @@ TrieNode* removeItem(TrieNode* root, string key, int depth)
         root = NULL;
     }
 
+    return root;
+}
+
+TrieNode* removeAll(TrieNode *&root,string a[],int n){
+    while(!isEmpty(root)){
+        for(int i = 0; i < n; i++){
+            removeItem(root,a[i]);
+        }
+        /*for (unsigned short int i = 0; i < 26; i++) {
+            root->child[i] = NULL;
+        }*/
+    }
+    return root;
+}
+TrieNode* buildTrie(TrieNode* root,istream &input, string *&keys, int &n){
+    input >> n;
+    keys = new string[n];
+    for (int i = 0; i < n; i++){
+        input >> keys[i];
+        insertItem(root, keys[i]);
+    }
     return root;
 }
