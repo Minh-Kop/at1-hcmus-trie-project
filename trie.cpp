@@ -1,5 +1,4 @@
 #include "trie.hpp"
-#include <fstream>
 using namespace std;
 
 TrieNode::TrieNode()
@@ -10,9 +9,9 @@ TrieNode::TrieNode()
     }
 }
 
-bool searchItem(TrieNode* Root, string Key)
+bool searchItem(TrieNode *Root, string Key)
 {
-    TrieNode* Temp = Root;
+    TrieNode *Temp = Root;
 
     for (int i = 0; i < Key.length(); i++)
     {
@@ -27,10 +26,10 @@ bool searchItem(TrieNode* Root, string Key)
     return (Temp->End);
 }
 
-int countItem(TrieNode* Root)
+int countItem(TrieNode *Root)
 {
     int Count = 0;
-
+    if (!Root) return 0;
     if (Root->End)
     {
         Count++;
@@ -42,13 +41,13 @@ int countItem(TrieNode* Root)
             Count += countItem(Root->child[i]);
         }
     }
-
     return Count;
 }
 
-bool isEmpty(TrieNode* Root)
+bool isEmpty(TrieNode *Root)
 {
-    TrieNode* Temp = Root;
+    if (!Root) return 0;
+    TrieNode *Temp = Root;
     for (int i = 0; i < 26; i++)
     {
         if (Temp->child[i])
@@ -59,16 +58,16 @@ bool isEmpty(TrieNode* Root)
     return true;
 }
 
-void insertItem(TrieNode* root, string key)
+void insertItem(TrieNode *root, string key)
 {
-    TrieNode* track = root;
+    TrieNode *track = root;
 
     for (int i = 0; i < key.size(); i++)
     {
         int index = key[i] - 'a';
         if (!track->child[index])
         {
-            TrieNode* temp = new TrieNode;
+            TrieNode *temp = new TrieNode;
             track->child[index] = temp;
         }
         track = track->child[index];
@@ -77,14 +76,25 @@ void insertItem(TrieNode* root, string key)
     track->End = true;
 }
 
-TrieNode* removeItem(TrieNode* &root, string key, int depth)
+TrieNode* removeItem(TrieNode*& root, string key, int depth)
 {
     if (!root)
     {
         return NULL;
     }
 
-    if (depth == key.size())
+    if (!depth)
+    {
+        for (int i = 0; i < key.size(); i++)
+        {
+            if (key[i] < 'a')
+            {
+                key[i] += 32;
+            }
+        }
+    }
+
+    if (depth == key.size()) 
     {
         if (root->End)
         {
@@ -103,7 +113,7 @@ TrieNode* removeItem(TrieNode* &root, string key, int depth)
     int index = key[depth] - 'a';
     root->child[index] = removeItem(root->child[index], key, depth + 1);
 
-    if (isEmpty(root) && !root->End)
+    if (isEmpty(root) && !root->End) 
     {
         delete[] root;
         root = NULL;
@@ -112,23 +122,26 @@ TrieNode* removeItem(TrieNode* &root, string key, int depth)
     return root;
 }
 
-TrieNode* removeAll(TrieNode *&root,string a[],int n){
-    while(!isEmpty(root)){
-        for(int i = 0; i < n; i++){
-            removeItem(root,a[i]);
+void removeAll(TrieNode *&root){
+    if (!root) return;
+    for(int i = 0; i < 26; i++)
+        if (root->child[i]){
+            removeAll(root->child[i]);
+            root->child[i]=NULL;
         }
-        /*for (unsigned short int i = 0; i < 26; i++) {
-            root->child[i] = NULL;
-        }*/
-    }
-    return root;
+    delete []root;
 }
-TrieNode* buildTrie(TrieNode* root,istream &input, string *&keys, int &n){
+
+TrieNode *buildTrie(TrieNode *root, istream &input)
+{
+    int n = 0;
     input >> n;
-    keys = new string[n];
-    for (int i = 0; i < n; i++){
+    string *keys = new string[n];
+    for (int i = 0; i < n; i++)
+    {
         input >> keys[i];
         insertItem(root, keys[i]);
     }
+    delete []keys;
     return root;
 }
