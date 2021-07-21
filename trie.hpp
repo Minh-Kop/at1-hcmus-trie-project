@@ -16,3 +16,5 @@ void insertItem(TrieNode* root, string key);
 TrieNode* removeItem(TrieNode* &root, string key, int depth = 0);
 void removeAll(TrieNode *&root);
 TrieNode* buildTrie(TrieNode* root,istream &input = cin);
+void printTrie(TrieNode *root,ostream &output = cout,string word = "");
+void sugestItem(TrieNode *root, string word,ostream &output = cout);

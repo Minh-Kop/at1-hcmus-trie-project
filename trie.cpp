@@ -29,7 +29,8 @@ bool searchItem(TrieNode *Root, string Key)
 int countItem(TrieNode *Root)
 {
     int Count = 0;
-    if (!Root) return 0;
+    if (!Root)
+        return 0;
     if (Root->End)
     {
         Count++;
@@ -46,7 +47,8 @@ int countItem(TrieNode *Root)
 
 bool isEmpty(TrieNode *Root)
 {
-    if (!Root) return 0;
+    if (!Root)
+        return 0;
     TrieNode *Temp = Root;
     for (int i = 0; i < 26; i++)
     {
@@ -76,7 +78,7 @@ void insertItem(TrieNode *root, string key)
     track->End = true;
 }
 
-TrieNode* removeItem(TrieNode*& root, string key, int depth)
+TrieNode *removeItem(TrieNode *&root, string key, int depth)
 {
     if (!root)
     {
@@ -94,7 +96,7 @@ TrieNode* removeItem(TrieNode*& root, string key, int depth)
         }
     }
 
-    if (depth == key.size()) 
+    if (depth == key.size())
     {
         if (root->End)
         {
@@ -113,7 +115,7 @@ TrieNode* removeItem(TrieNode*& root, string key, int depth)
     int index = key[depth] - 'a';
     root->child[index] = removeItem(root->child[index], key, depth + 1);
 
-    if (isEmpty(root) && !root->End) 
+    if (isEmpty(root) && !root->End)
     {
         delete[] root;
         root = NULL;
@@ -122,14 +124,17 @@ TrieNode* removeItem(TrieNode*& root, string key, int depth)
     return root;
 }
 
-void removeAll(TrieNode *&root){
-    if (!root) return;
-    for(int i = 0; i < 26; i++)
-        if (root->child[i]){
+void removeAll(TrieNode *&root)
+{
+    if (!root)
+        return;
+    for (int i = 0; i < 26; i++)
+        if (root->child[i])
+        {
             removeAll(root->child[i]);
-            root->child[i]=NULL;
+            root->child[i] = NULL;
         }
-    delete []root;
+    delete[] root;
 }
 
 TrieNode *buildTrie(TrieNode *root, istream &input)
@@ -142,6 +147,36 @@ TrieNode *buildTrie(TrieNode *root, istream &input)
         input >> keys[i];
         insertItem(root, keys[i]);
     }
-    delete []keys;
+    delete[] keys;
     return root;
+}
+
+void printTrie(TrieNode *root, ostream &output, string word)
+{
+    if (!root)
+        return;
+    if (root->End)
+        output << word << endl;
+    for (int i = 0; i < 26; i++)
+        if (root->child[i])
+        {
+            word.push_back('a' + i);
+            printTrie(root->child[i], output, word);
+            word.pop_back();
+        }
+}
+
+void sugestItem(TrieNode *root,string word,ostream &output)
+{
+    for (int i = 0; i < word.length(); i++)
+    {
+        int index = word[i] - 'a';
+        if (!root->child[index])
+        {
+            cout << "There is no word matched with the dictionary";
+            return;
+        }
+        root = root->child[index];
+    }
+    printTrie(root,output,word);
 }
