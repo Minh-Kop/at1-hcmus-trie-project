@@ -33,11 +33,11 @@ int main(int argc, char* argv[])
         cin >> word;
         if (searchItem(root, word))
         {
-            cout << "That word is in the dictionary.\n";
+            cout << word << " is in the dictionary.\n";
         }
         else
         {
-            cout << "That word isn't in the dictionary.\n";
+            cout << word << " isn't in the dictionary.\n";
         }
         break;
     }
@@ -57,11 +57,11 @@ int main(int argc, char* argv[])
         removeItem(root, word);
         if (searchItem(root, word))
         {
-            cout << "That word is in the dictionary.\n";
+            cout << word << " is in the dictionary.\n";
         }
         else
         {
-            cout << "That word isn't in the dictionary.\n";
+            cout << word << " is no longer in the dictionary.\n";
         }
         break;
     }

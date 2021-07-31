@@ -7,14 +7,16 @@ struct TrieNode
     TrieNode* child[26];
     bool End = false;
     TrieNode();
-};
+}; 
 
-bool searchItem(TrieNode* Root, string Key);
-int countItem(TrieNode* Root);
-bool isEmpty(TrieNode* Root);
-void insertItem(TrieNode* root, string key);
-TrieNode* removeItem(TrieNode* &root, string key, int depth = 0);
-void removeAll(TrieNode *&root);
-TrieNode* buildTrie(TrieNode* root,istream &input = cin);
-void printTrie(TrieNode *root,ostream &output = cout,string word = "");
-void sugestItem(TrieNode *root, string word,ostream &output = cout);
+bool searchItem(TrieNode* root, string key);
+int countItem(TrieNode* root);
+bool isEmpty(TrieNode* root);
+void insertItem(TrieNode*& root, string key);
+TrieNode* removeItem(TrieNode*& root, string key, int depth = 0);
+void removeAll(TrieNode*& root);
+
+TrieNode* buildTrie(TrieNode* root, string file_name);
+void printTrie(TrieNode* root, int letter = -1);
+void printAllSimilarWords(TrieNode* root, string word);
+void suggestItem(TrieNode* root, string word);
