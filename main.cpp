@@ -1,3 +1,5 @@
+#include "trie.hpp"
+
 int main(int argc, char *argv[])
 {
     string continuity, word;
