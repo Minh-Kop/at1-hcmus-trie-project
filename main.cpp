@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
         {
             cout << "Input a word that you want to search all similar words with that word: ";
             cin >> word;
-            sugestItem(root, word);
+            suggestItem(root, word);
             break;
         }
         case 4:
@@ -67,6 +67,6 @@ int main(int argc, char *argv[])
         cout << "\nDo you want to stop? ";
         cin >> continuity;
         cout << "\n\n";
-    } while (continuity == "no");
+    } while (continuity == "no" || continuity == "n");
     removeAll(root);
 }
