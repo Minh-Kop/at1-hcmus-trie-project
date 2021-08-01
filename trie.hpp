@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
 struct TrieNode
@@ -15,7 +16,6 @@ bool isEmpty(TrieNode* root);
 void insertItem(TrieNode*& root, string key);
 TrieNode* removeItem(TrieNode*& root, string key, int depth = 0);
 void removeAll(TrieNode*& root);
-
 TrieNode* buildTrie(TrieNode* root, string file_name);
 void printTrieInorder(TrieNode* root, int letter = -1);
 void printAllSimilarWords(TrieNode* root, string word);
