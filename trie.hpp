@@ -16,7 +16,7 @@ bool isEmpty(TrieNode* root);
 void insertItem(TrieNode*& root, string key);
 TrieNode* removeItem(TrieNode*& root, string key, int depth = 0);
 void removeAll(TrieNode*& root);
-TrieNode* buildTrie(TrieNode* root, string file_name);
+TrieNode* buildTrie(TrieNode* root,istream &input = cin);
 void printTrieInorder(TrieNode* root, int letter = -1);
 void printAllSimilarWords(TrieNode* root, string word);
 void suggestItem(TrieNode* root, string word);
