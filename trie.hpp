@@ -7,7 +7,7 @@ struct TrieNode
     TrieNode* child[26];
     bool End = false;
     TrieNode();
-}; 
+};
 
 bool searchItem(TrieNode* root, string key);
 int countItem(TrieNode* root);
@@ -17,6 +17,6 @@ TrieNode* removeItem(TrieNode*& root, string key, int depth = 0);
 void removeAll(TrieNode*& root);
 
 TrieNode* buildTrie(TrieNode* root, string file_name);
-void printTrie(TrieNode* root, int letter = -1);
+void printTrieInorder(TrieNode* root, int letter = -1);
 void printAllSimilarWords(TrieNode* root, string word);
 void suggestItem(TrieNode* root, string word);

@@ -1,4 +1,5 @@
 #include "trie.hpp"
+#include <iostream>
 using namespace std;
 
 TrieNode::TrieNode()
@@ -242,29 +243,34 @@ void suggestItem(TrieNode* root, string word)
     printAllSimilarWords(track, word);
 }
 
-void printTrie(TrieNode* root, int letter)
+void printTrieInorder(TrieNode* root, int letter)
 {
     if (root == NULL)
     {
         return;
     }
 
+    bool check = true;
     for (int i = 0; i < 26; i++)
     {
         if (root->child[i])
         {
-            printTrie(root->child[i], i);
-            if (letter == -1)
+            printTrieInorder(root->child[i], i);
+            if (check)
             {
-                cout << "root ";
-            }
-            else
-            {
-                cout << (char)('a' + letter) << " ";
+                if (letter < 0)
+                {
+                    cout << "root ";
+                }
+                else
+                {
+                    cout << (char)('a' + letter) << " ";
+                }
+                check = false;
             }
         }
     }
-    if (letter != -1)
+    if (check)
     {
         cout << (char)('a' + letter) << " ";
     }
