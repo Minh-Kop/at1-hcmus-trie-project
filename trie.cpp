@@ -1,5 +1,4 @@
 #include "trie.hpp"
-#include <iostream>
 using namespace std;
 
 TrieNode::TrieNode()
