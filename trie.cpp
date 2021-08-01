@@ -175,29 +175,17 @@ void removeAll(TrieNode*& root)
     delete[] root;
 }
 
-TrieNode* buildTrie(TrieNode* root, string file_name)
+TrieNode *buildTrie(TrieNode *root, istream &input)
 {
-    ifstream input;
-    input.open(file_name);
-    if (!input.is_open())
-    {
-        cout << "Can't open the file.\n";
-        input.close();
-        return NULL;
-    }
-
-    int n;
+    int n = 0;
     input >> n;
-
-    string* keys = new string[n];
+    string *keys = new string[n];
     for (int i = 0; i < n; i++)
     {
         input >> keys[i];
         insertItem(root, keys[i]);
     }
-
     delete[] keys;
-    input.close();
     return root;
 }
 
