@@ -1,13 +1,8 @@
-#include <iostream>
-#include <string>
-#include "trie.hpp"
-using namespace std;
-
-
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    string input = "D:\\at1-hcmus-trie-project\\words.txt", continuity;
-    TrieNode* root = new TrieNode;
+    string continuity, word;
+    ifstream input("word.txt");
+    TrieNode *root = new TrieNode;
     buildTrie(root, input);
     do
     {
@@ -30,7 +25,6 @@ int main(int argc, char* argv[])
         }
         case 2:
         {
-            string word;
             cout << "Input a word that you want to search: ";
             cin >> word;
             if (searchItem(root, word))
@@ -45,15 +39,13 @@ int main(int argc, char* argv[])
         }
         case 3:
         {
-            string word;
             cout << "Input a word that you want to search all similar words with that word: ";
             cin >> word;
-            suggestItem(root, word);
+            sugestItem(root, word);
             break;
         }
         case 4:
         {
-            string word;
             cout << "Input a word that you want delete: ";
             cin >> word;
             removeItem(root, word);
@@ -76,8 +68,5 @@ int main(int argc, char* argv[])
         cin >> continuity;
         cout << "\n\n";
     } while (continuity == "no");
-
-
     removeAll(root);
-    return 0;
 }
